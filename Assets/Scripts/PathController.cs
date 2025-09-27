@@ -59,6 +59,23 @@ public class PathController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         target = pm.GetNextTarget();
+
+        if (other.CompareTag("Player"))
+        {
+            StartCoroutine(pause());
+        }
+    }
+
+    IEnumerator pause()
+    {
+        isWalking = false;
+        animator.SetBool("isWalking", false);
+        MoveSpeed = 0;
+        yield return new WaitForSeconds(3f);
+        
+        isWalking = true;
+        animator.SetBool("isWalking", true);
+        MoveSpeed = 1;
     }
     
 }
